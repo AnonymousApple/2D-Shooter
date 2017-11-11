@@ -8,10 +8,10 @@ function Player(){
 	this.v = 0;
 	this.angle = 0;
 	this.lastShootTime = 0;
-	
-	
+
+
 	this.stats = {maxV:100,dAngle:0.03,acc:10,shootDelayMs:100};
-	
+
 	this.update = function(dt){
 		if(keyLogger.keyStatus.up){
 		this.v += this.stats.acc;
@@ -33,16 +33,16 @@ function Player(){
 			if(this.angle > 2*Math.PI)
 				this.angle -= 2*Math.PI;
 		}
-		
-		
+
+
 		if(!(keyLogger.keyStatus.up || keyLogger.keyStatus.down))
 			this.v *= 0.99;
 		this.vx = this.v * Math.cos(this.angle);
 		this.vy = this.v * Math.sin(this.angle);
-		
+
 		this.x += this.vx * dt;
 		this.y += this.vy * dt;
-		
+
 		var time = utils.getTime();
 		if(keyLogger.keyStatus.fire &&
 			time - this.lastShootTime >= this.stats.shootDelayMs){
@@ -54,16 +54,16 @@ function Player(){
 			});
 			this.lastShootTime = time;
 		}
-		
+
 	};
-	
+
 	this.render = function(ctx){
 		ctx.fillStyle="#FF0000";
 		ctx.beginPath();
 		ctx.arc(this.x,this.y,10,0,6.28);
 		ctx.fill();
-	
-		ctx.strokeStyle="#FF0000";
+
+		ctx.strokeStyle="#0000FF";
 		ctx.beginPath();
 		ctx.moveTo(this.x,this.y);
 		var pointerLength = 25;
@@ -73,5 +73,5 @@ function Player(){
 			);
 		ctx.stroke();
 	};
-	
+
 }
